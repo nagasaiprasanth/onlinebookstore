@@ -18,7 +18,7 @@ pipeline {
         }
         stage('Static code analysis') {
             steps {
-        withSonarQubeEnv('Sonarqube-8.9.10') {
+        withSonarQubeEnv('sonarqube 8.9.10') {
                     sh  "mvn sonar:sonar"
                 }
             }
