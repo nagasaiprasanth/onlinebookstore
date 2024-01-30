@@ -1,28 +1,26 @@
 pipeline {
     agent any
     tools{
-        maven "maven3"
+        maven "M2_HOME"
     }
 
     stages {
-        stage('git clone') {
+        stage('code clone') {
             steps {
-                git 'https://github.com/nagasaiprasanth/onlinebookstore.git'
+                git branch: 'prasanth', credentialsId: 'github', url: 'https://github.com/nagasaiprasanth/onlinebookstore.git'
             }
         }
-         
-        stage('build the code') {
+        stage('bulid the code ') {
             steps {
                 sh 'mvn clean install'
             }
         }
-        stage('Static code analysis') {
+        stage('static code analysis') {
             steps {
-        withSonarQubeEnv('sonarqube 8.9.10') {
+                 withSonarQubeEnv('sonarqube') {
                     sh  "mvn sonar:sonar"
                 }
             }
-                
         }
     }
 }

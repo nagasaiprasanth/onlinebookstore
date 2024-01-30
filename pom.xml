@@ -52,6 +52,11 @@
 	</build>
 	<dependencies>
 
+<dependency>
+<groupId>org.sonarsource.scanner.maven</groupId>
+<artifactId>sonar-maven-plugin</artifactId>
+<version>3.2</version>
+</dependency>
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
@@ -72,4 +77,18 @@
 			<version>3.1.0</version>
 		</dependency>
 	</dependencies>
+	<profiles>
+<profile>
+<id>sonar</id>
+<activation>
+<activeByDefault>true</activeByDefault>
+</activation>
+<properties>
+<!-- Optional URL to server. Default value is http://localhost:9000 -->
+<sonar.host.url>
+http://13.233.32.53:9000/
+</sonar.host.url>
+</properties>
+</profile>
+</profiles>
 </project>
