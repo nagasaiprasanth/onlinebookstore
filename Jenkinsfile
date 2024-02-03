@@ -1,26 +1,37 @@
 pipeline {
     agent any
-    tools{
-        maven "M2_HOME"
+    tool {
+        maven "Maven3"
     }
 
     stages {
         stage('code clone') {
             steps {
-                git branch: 'prasanth', credentialsId: 'github', url: 'https://github.com/nagasaiprasanth/onlinebookstore.git'
+                git branch: 'prasanth', url: 'https://github.com/nagasaiprasanth/onlinebookstore.git'
             }
         }
-        stage('bulid the code ') {
+        
+        stage('code build') {
             steps {
                 sh 'mvn clean install'
             }
         }
-        stage('static code analysis') {
+        
+         stage('Push the artifacts into Jfrog artifactory') {
             steps {
-                 withSonarQubeEnv('sonarqube') {
-                    sh  "mvn sonar:sonar"
-                }
-            }
+              rtUpload (
+                serverId: 'dev-server',
+                spec: '''{
+                      "files": [
+                        {
+                          "pattern": "*.war",
+                           "target": "web-application/"
+                        }
+                    ]
+                }'''
+              )
+          }
         }
+  
     }
 }
