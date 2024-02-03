@@ -91,4 +91,17 @@ http://13.201.22.162:9000/
 </properties>
 </profile>
 </profiles>
+
+ <distributionManagement>
+      <snapshotRepository>
+        <id>jfrog-snapshots</id>
+        <url>http://13.201.184.229:8082/artifactory/web-application/</url>
+      </snapshotRepository>
+      <repository>
+        <id>jfrog-releases</id>
+        <url>http://13.201.184.229:8082/artifactory/web-application/</url>
+      </repository>
+    </distributionManagement>
+
+
 </project>
