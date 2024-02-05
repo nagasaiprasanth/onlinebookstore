@@ -40,7 +40,13 @@ pipeline {
                     ]
                 }'''
               )
-          }
+            }
+        }
+
+        stage('deploy to tomcat container') {
+            steps {
+                deploy adapters: [tomcat7(credentialsId: 'tomcat', path: '', url: 'http://3.110.85.37:8085')], contextPath: null, war: '**/*.war'
+            }
         }
   
     }
