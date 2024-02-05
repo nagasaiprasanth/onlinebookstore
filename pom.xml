@@ -86,7 +86,7 @@
 <properties>
 <!-- Optional URL to server. Default value is http://localhost:9000 -->
 <sonar.host.url>
-http://3.7.252.225:9000/
+http://13.201.77.177:9000
 </sonar.host.url>
 </properties>
 </profile>
@@ -95,11 +95,11 @@ http://3.7.252.225:9000/
  <distributionManagement>
       <snapshotRepository>
         <id>jfrog-snapshots</id>
-        <url>http://15.207.117.156:8082/artifactory/onlinestorebooks/</url>
+        <url>http://3.111.38.59:8082/artifactory/onlinestorebooks/</url>
       </snapshotRepository>
       <repository>
         <id>jfrog-releases</id>
-        <url>http://15.207.117.156:8082/artifactory/onlinestorebooks/</url>
+        <url>http://3.111.38.59:8082/artifactory/onlinestorebooks/</url>
       </repository>
     </distributionManagement>
 
