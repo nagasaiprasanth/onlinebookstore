@@ -1,7 +1,7 @@
 pipeline {
     agent any
     tools {
-        maven "Maven3"
+        maven "M2_HOME"
     }
 
     stages {
@@ -16,6 +16,16 @@ pipeline {
                 sh 'mvn clean install'
             }
         }
+
+
+        stage('Static code analysis') {
+            steps {
+        withSonarQubeEnv('sonarqube') {
+                    sh  "mvn sonar:sonar"
+                }
+                }
+                
+            }
         
          stage('Push the artifacts into Jfrog artifactory') {
             steps {
@@ -25,7 +35,7 @@ pipeline {
                       "files": [
                         {
                           "pattern": "*.war",
-                           "target": "web-application/"
+                           "target": "onlinebookstore/"
                         }
                     ]
                 }'''
