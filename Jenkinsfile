@@ -23,11 +23,11 @@ pipeline {
         withSonarQubeEnv('sonarqube') {
                     sh  "mvn sonar:sonar"
                 }
-                }
-                
             }
+                
+        }
         
-         stage('Push the artifacts into Jfrog artifactory') {
+        stage('Push the artifacts into Jfrog artifactory') {
             steps {
               rtUpload (
                 serverId: 'dev-server',
@@ -45,9 +45,33 @@ pipeline {
 
         stage('deploy to tomcat container') {
             steps {
-                deploy adapters: [tomcat7(credentialsId: 'tomcat', path: '', url: 'http://3.110.85.37:8085')], contextPath: null, war: '**/*.war'
+                deploy adapters: [tomcat7(credentialsId: 'tomcat', path: '', url: 'http://43.205.127.86:8088')], contextPath: null, war: '**/*.war'
             }
         }
+        stage('Build Docker Image') {
+            steps {
+                sh '''
+               docker build . --tag prasanth369/onlinebookstore:$BUILD_NUMBER
+               
+                '''
+                
+            }
+        }
+        stage('Push Docker Image') {
+            steps {
+                  withCredentials([usernamePassword(credentialsId: 'docker', passwordVariable: 'DOCKERHUB_PASSWORD', usernameVariable: 'DOCKERHUB_USERNAME')]) {
+       
+                    sh '''
+                    docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD
+                        docker push prasanth369/onlinebookstore:$BUILD_NUMBER
+                    '''
+                  }
+                }
+            } 
+            
+        }
+   
   
     }
+
 }
