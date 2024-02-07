@@ -36,7 +36,6 @@ pipeline {
                         {
                           "pattern": "*.war",
                            "target": "onlinebookstore/"
-"
                         }
                     ]
                 }'''
