@@ -35,7 +35,8 @@ pipeline {
                       "files": [
                         {
                           "pattern": "*.war",
-                           "target": "onlinestorebooks/"
+                           "target": "onlinebookstore/
+"
                         }
                     ]
                 }'''
